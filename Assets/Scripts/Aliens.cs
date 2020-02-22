@@ -7,9 +7,7 @@ public class Aliens : MonoBehaviour {
 
     public float speed = 0.005f;
     public float wait = 0.4f;
-    public float down = 0.05f;
     private bool invert = false;
-
     public float shooting_prob = 0.0007f;
 
     public GameObject AlienTiro;
@@ -23,7 +21,7 @@ public class Aliens : MonoBehaviour {
         float dt = Time.deltaTime;
         if (invert) {
             speed = -speed;
-            gameObject.transform.position += Vector3.down * down;
+            gameObject.transform.position += Vector3.down * speed * dt;
             invert = false;
             return;
         } else {
