@@ -2,53 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public class Aliens : MonoBehaviour
-{
+public class Aliens : MonoBehaviour {
     // Start is called before the first frame update
 
     public float speed = 0.005f;
     public float wait = 0.4f;
+    public float down = 0.05f;
     private bool invert = false;
+
     public float shooting_prob = 0.0007f;
 
     public GameObject AlienTiro;
 
-    void Start()
-    {
-        InvokeRepeating("AliensAttack", 0, wait);
+    void Start () {
+        // InvokeRepeating("AliensAttack", 0, wait);
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update () {
         float dt = Time.deltaTime;
-        if (invert)
-        {
+        if (invert) {
             speed = -speed;
-            gameObject.transform.position += Vector3.down * Mathf.Abs(speed)*dt;
+            gameObject.transform.position += Vector3.down * down;
             invert = false;
             return;
-        }
-        else
-        {
-            gameObject.transform.position += Vector3.right * speed*dt;
+        } else {
+            gameObject.transform.position += Vector3.right * speed * dt;
         }
 
-        foreach (Transform alien in gameObject.transform)
-        {
-            if (alien.position.x < -9 || alien.position.x > 9)
-            {
+        foreach (Transform alien in gameObject.transform) {
+            if (alien.position.x < -9 || alien.position.x > 9) {
                 invert = true;
-                break;
             }
-            if (Random.value < shooting_prob)
-            {
-                Instantiate(AlienTiro, alien.position, alien.rotation);
+            if (Random.value < shooting_prob) {
+                Instantiate (AlienTiro, alien.position, alien.rotation);
             }
-
         }
-
     }
+
 }
