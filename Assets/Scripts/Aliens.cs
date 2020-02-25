@@ -7,6 +7,8 @@ public class Aliens : MonoBehaviour {
 
     public float speed = 0.005f;
     public float wait = 0.4f;
+    public float down = 0.4f;
+
     private bool invert = false;
     public float shooting_prob = 0.0007f;
 
@@ -21,7 +23,7 @@ public class Aliens : MonoBehaviour {
         float dt = Time.deltaTime;
         if (invert) {
             speed = -speed;
-            gameObject.transform.position += Vector3.down * speed * dt;
+            gameObject.transform.position += Vector3.down * down * dt;
             invert = false;
             return;
         } else {
@@ -32,10 +34,14 @@ public class Aliens : MonoBehaviour {
             if (alien.position.x < -9 || alien.position.x > 9) {
                 invert = true;
             }
-            if (Random.value < shooting_prob) {
+            if (Random.value < shooting_prob && alien.gameObject.activeSelf) {
                 Instantiate (AlienTiro, alien.position, alien.rotation);
             }
         }
+    }
+
+    public void Hit () {
+        gameObject.SetActive (false);
     }
 
 }
