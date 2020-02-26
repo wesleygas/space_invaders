@@ -6,9 +6,11 @@ public class Aliens : MonoBehaviour {
     // Start is called before the first frame update
 
     public float speed = 0.005f;
+    public float alone_rage = 10;
     public float wait = 0.4f;
     public float down = 0.4f;
     float level = 1;
+    float rage_bonus = 1;
 
     private bool invert = false;
     public float shooting_prob = 0.0007f;
@@ -23,14 +25,21 @@ public class Aliens : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        
+        if (gameObject.transform.childCount > 0)
+        {
+            rage_bonus = alone_rage / gameObject.transform.childCount;
+        }
+         
         float dt = Time.deltaTime;
         if (invert) {
             speed = -speed;
-            gameObject.transform.position += Vector3.down * down * dt* level;
+            gameObject.transform.position += Vector3.down * down * dt * level * rage_bonus;
             invert = false;
             return;
         } else {
-            gameObject.transform.position += Vector3.right * speed * dt * (float)level;
+            gameObject.transform.position += Vector3.right * speed * dt * level * rage_bonus;
         }
 
         foreach (Transform alien in gameObject.transform) {
@@ -84,9 +93,6 @@ public class Aliens : MonoBehaviour {
                     break;
                 }
         }
-
-
-
     }
 
     void ChangeColor(UnityEngine.Color color)
