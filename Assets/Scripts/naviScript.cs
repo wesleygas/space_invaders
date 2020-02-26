@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class naviScript : MonoBehaviour {
     public float speed = 0.005f;
@@ -29,7 +30,7 @@ public class naviScript : MonoBehaviour {
             }
 
             basic_shot_timer += dt;
-            if (basic_shot_timer > wait && Input.GetButton ("Fire1")) {
+            if (basic_shot_timer > wait && Input.GetKeyDown ("space")) {
                 basic_shot_timer = 0;
                 Instantiate (ball, gameObject.transform.position, Quaternion.identity);
             }
@@ -41,8 +42,9 @@ public class naviScript : MonoBehaviour {
 
     void Health () {
 
-        if (spaceships == null) {
-            return;
+        if (spaceships == null || health == 0) {
+            HealthContainer.health = 0;
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
         }
         int children = spaceships.transform.childCount;
         for (int i = 0; i < children; i++) {
