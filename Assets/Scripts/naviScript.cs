@@ -43,8 +43,8 @@ public class naviScript : MonoBehaviour {
     void Health () {
 
         if (spaceships == null || health == 0) {
-            HealthContainer.health = 0;
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+            // HealthContainer.health = 0;
+            //SceneManager.LoadScene ("Result");
         }
         int children = spaceships.transform.childCount;
         for (int i = 0; i < children; i++) {

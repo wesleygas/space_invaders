@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Aliens : MonoBehaviour {
     // Start is called before the first frame update
@@ -9,52 +8,92 @@ public class Aliens : MonoBehaviour {
     public float speed = 0.005f;
     public float wait = 0.4f;
     public float down = 0.4f;
+    float level = 1;
 
     private bool invert = false;
     public float shooting_prob = 0.0007f;
 
     public GameObject AlienTiro;
 
+    public GameObject common_alien;
+
     void Start () {
-        // InvokeRepeating("AliensAttack", 0, wait);
+        ReSpawnAliens("common");
     }
 
     // Update is called once per frame
     void Update () {
         float dt = Time.deltaTime;
-        int count = 0;
         if (invert) {
             speed = -speed;
-            gameObject.transform.position += Vector3.down * down * dt;
+            gameObject.transform.position += Vector3.down * down * dt* level;
             invert = false;
             return;
         } else {
-            gameObject.transform.position += Vector3.right * speed * dt;
+            gameObject.transform.position += Vector3.right * speed * dt * (float)level;
         }
 
         foreach (Transform alien in gameObject.transform) {
             if (alien.position.x < -9 || alien.position.x > 9) {
                 invert = true;
             }
-            if (Random.value < shooting_prob && alien.gameObject.activeSelf) {
+            if (Random.value < shooting_prob*(float)level) {
                 Instantiate (AlienTiro, alien.position, alien.rotation);
             }
 
-            if (alien.gameObject.activeSelf) {
-                count++;
+        }
+    }
+
+
+    public void ReSpawnAliens(string type)
+    {
+        foreach (Transform alien in gameObject.transform)
+        {
+            GameObject.Destroy(alien.gameObject);
+        }
+        if (type == "common")
+        {
+            for (float x = -8.0f; x <= 8.0f; x += 2.0f) // 2.0f
+            {
+                for (float y = 0.5f; y <= 3.5f; y += 1.5f) //1.5f
+                {
+                    Vector3 pos = new Vector3(x, y);
+                    var new_alien = Instantiate(common_alien, pos, Quaternion.identity, gameObject.transform);
+                }
             }
+        }
+    }
 
+    public void ChangeLevel(int level)
+    {
+        ReSpawnAliens("common");
+        switch (level)
+        {
+            case (1):
+                {
+                    this.level = (float)level;
+                    var newColor = new Color32(255,255, 255, 255);
+                    ChangeColor(newColor);
+                    break;
+                }
+            case (2):
+                {
+                    this.level = (float)level*1.5f;
+                    var newColor = new Color32(255, 236, 47, 34);
+                    ChangeColor(newColor);
+                    break;
+                }
         }
 
-        if (count == 0) {
-            HealthContainer.health = GameObject.Find ("Spaceship").GetComponent<naviScript> ().health;
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
-        }
+
 
     }
 
-    public void Hit () {
-        gameObject.SetActive (false);
+    void ChangeColor(UnityEngine.Color color)
+    {
+        foreach (Transform alien in gameObject.transform)
+        {
+            alien.gameObject.GetComponent<SpriteRenderer>().color = color;
+        }
     }
-
 }

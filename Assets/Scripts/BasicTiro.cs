@@ -22,8 +22,7 @@ public class BasicTiro : MonoBehaviour {
     private void OnTriggerEnter2D (Collider2D collision) {
 
         if (collision.tag == "Alien") {
-            // Destroy (collision.gameObject);
-            collision.gameObject.SetActive (false);
+            Destroy (collision.gameObject);
             Destroy (gameObject);
         } else if (collision.tag == "Base") {
             collision.gameObject.SendMessage ("Hit");
