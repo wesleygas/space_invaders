@@ -24,6 +24,7 @@ public class BasicTiro : MonoBehaviour {
         if (collision.tag == "Alien") {
             Destroy (collision.gameObject);
             Destroy (gameObject);
+            GameObject.Find("score").GetComponent<ScoreManager>().AddScore(10);
         } else if (collision.tag == "Base") {
             collision.gameObject.SendMessage ("Hit");
             Destroy (gameObject);
