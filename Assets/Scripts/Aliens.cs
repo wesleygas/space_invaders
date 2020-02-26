@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Aliens : MonoBehaviour {
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class Aliens : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         float dt = Time.deltaTime;
+        int count = 0;
         if (invert) {
             speed = -speed;
             gameObject.transform.position += Vector3.down * down * dt;
@@ -37,7 +39,18 @@ public class Aliens : MonoBehaviour {
             if (Random.value < shooting_prob && alien.gameObject.activeSelf) {
                 Instantiate (AlienTiro, alien.position, alien.rotation);
             }
+
+            if (alien.gameObject.activeSelf) {
+                count++;
+            }
+
         }
+
+        if (count == 0) {
+            HealthContainer.health = GameObject.Find ("Spaceship").GetComponent<naviScript> ().health;
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+        }
+
     }
 
     public void Hit () {
