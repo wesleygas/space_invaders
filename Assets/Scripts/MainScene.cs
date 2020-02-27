@@ -17,9 +17,9 @@ public class MainScene : MonoBehaviour
 
     void Update()
     {
-        if (life.transform.childCount == 0)
+        
+        if (HealthContainer.health == 0)
         {
-            gameObject.GetComponent<Text>().text = "Vitória dos Aliens";
             EndScene();
         }
         else if (aliens.transform.childCount == 0)
@@ -33,6 +33,7 @@ public class MainScene : MonoBehaviour
                     }
                 case (2):
                     {
+
                         EndScene();
                         break;
                     }
@@ -53,10 +54,10 @@ public class MainScene : MonoBehaviour
 
     void EndScene()
     {
-        HealthContainer.health = GameObject.Find("Spaceship").GetComponent<naviScript>().health;
         SceneManager.LoadScene("Result");
     }
     
+
 }
 
 

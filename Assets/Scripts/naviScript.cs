@@ -15,7 +15,7 @@ public class naviScript : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start () {
-
+        HealthContainer.health = 3;
     }
 
     // Update is called once per frame
@@ -43,8 +43,7 @@ public class naviScript : MonoBehaviour {
     void Health () {
 
         if (spaceships == null || health == 0) {
-            // HealthContainer.health = 0;
-            //SceneManager.LoadScene ("Result");
+            HealthContainer.health = 0;
         }
         int children = spaceships.transform.childCount;
         for (int i = 0; i < children; i++) {
