@@ -10,12 +10,16 @@ public class naviScript : MonoBehaviour {
     public float wait = 0.3f;
     private float basic_shot_timer = 0;
 
+    public AudioSource audioData;
+    public AudioSource explosion;
+
     public GameObject ball;
     public GameObject spaceships;
 
     // Start is called before the first frame update
     void Start () {
         HealthContainer.health = 3;
+        // audioData = GetComponent<AudioSource> ();
     }
 
     // Update is called once per frame
@@ -32,6 +36,7 @@ public class naviScript : MonoBehaviour {
             basic_shot_timer += dt;
             if (basic_shot_timer > wait && Input.GetKeyDown ("space")) {
                 basic_shot_timer = 0;
+                audioData.Play ();
                 Instantiate (ball, gameObject.transform.position, Quaternion.identity);
             }
         }
@@ -56,8 +61,16 @@ public class naviScript : MonoBehaviour {
     }
 
     public void Hit () {
+        explosion.Play ();
         if (health > 0) {
             health -= 1;
+        }
+    }
+
+    private void OnTriggerEnter2D (Collider2D collision) {
+        Debug.Log (collision.tag);
+        if (collision.tag == "Alien") {
+            Hit ();
         }
     }
 }
