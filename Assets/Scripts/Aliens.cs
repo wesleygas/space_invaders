@@ -12,6 +12,8 @@ public class Aliens : MonoBehaviour {
     float level = 1;
     float rage_bonus = 1;
 
+    int last_count = 0;
+
     private bool invert = false;
     public float shooting_prob = 0.0189f;
 
@@ -21,14 +23,21 @@ public class Aliens : MonoBehaviour {
 
     void Start () {
         ReSpawnAliens ("common");
+        last_count = gameObject.transform.childCount +1;
     }
 
     // Update is called once per frame
     void Update () {
         int count = gameObject.transform.childCount + 1;
         float prob = shooting_prob / count;
-        if (gameObject.transform.childCount > 0) {
-            rage_bonus = alone_rage / gameObject.transform.childCount;
+        if (count != last_count) {
+            last_count = count;
+            rage_bonus = alone_rage / count;
+            float newPitch;
+            if (count > 10) newPitch = 1f;
+
+            else newPitch = ((float)count - 1) * (-.3f) / (9) + 1.5f;
+            FindObjectOfType<AudioManager>().SetPitch("background", newPitch);
         }
 
         float dt = Time.deltaTime;
