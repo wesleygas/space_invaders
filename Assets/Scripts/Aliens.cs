@@ -93,4 +93,5 @@ public class Aliens : MonoBehaviour {
             alien.gameObject.GetComponent<SpriteRenderer> ().color = color;
         }
     }
+
 }

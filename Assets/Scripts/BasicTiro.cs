@@ -32,10 +32,6 @@ public class BasicTiro : MonoBehaviour {
             killAlien.PlayOneShot (alien);
             StartCoroutine (WaitForSound ());
             Destroy (collision.gameObject);
-
-            // Destroy (gameObject);
-
-            Debug.Log ("Played");
             // GameObject.Find ("score").GetComponent<ScoreManager> ().AddScore (10);
         } else if (collision.tag == "Base") {
             collision.gameObject.SendMessage ("Hit");
@@ -44,7 +40,7 @@ public class BasicTiro : MonoBehaviour {
     }
 
     public IEnumerator WaitForSound () {
-        yield return new WaitWhile (() => killAlien.isPlaying == true); //if audio finished so it should play next audio
+        yield return new WaitWhile (() => killAlien.isPlaying == true);
         Destroy (gameObject);
     }
 

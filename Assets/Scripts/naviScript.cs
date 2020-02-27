@@ -11,6 +11,8 @@ public class naviScript : MonoBehaviour {
     private float basic_shot_timer = 0;
 
     public AudioSource audioData;
+    public AudioSource explosion;
+
     public GameObject ball;
     public GameObject spaceships;
 
@@ -59,8 +61,16 @@ public class naviScript : MonoBehaviour {
     }
 
     public void Hit () {
+        explosion.Play ();
         if (health > 0) {
             health -= 1;
+        }
+    }
+
+    private void OnTriggerEnter2D (Collider2D collision) {
+        Debug.Log (collision.tag);
+        if (collision.tag == "Alien") {
+            Hit ();
         }
     }
 }
