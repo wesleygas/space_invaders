@@ -13,25 +13,24 @@ public class Aliens : MonoBehaviour {
     float rage_bonus = 1;
 
     private bool invert = false;
-    public float shooting_prob = 0.0007f;
+    public float shooting_prob = 0.0189f;
 
     public GameObject AlienTiro;
 
     public GameObject common_alien;
 
     void Start () {
-        ReSpawnAliens("common");
+        ReSpawnAliens ("common");
     }
 
     // Update is called once per frame
     void Update () {
-
-        
-        if (gameObject.transform.childCount > 0)
-        {
+        int count = gameObject.transform.childCount + 1;
+        float prob = shooting_prob / count;
+        if (gameObject.transform.childCount > 0) {
             rage_bonus = alone_rage / gameObject.transform.childCount;
         }
-         
+
         float dt = Time.deltaTime;
         if (invert) {
             speed = -speed;
@@ -46,60 +45,52 @@ public class Aliens : MonoBehaviour {
             if (alien.position.x < -9 || alien.position.x > 9) {
                 invert = true;
             }
-            if (Random.value < shooting_prob*(float)level) {
+            if (Random.value < prob * (float) level) {
                 Instantiate (AlienTiro, alien.position, alien.rotation);
             }
 
         }
     }
 
-
-    public void ReSpawnAliens(string type)
-    {
-        foreach (Transform alien in gameObject.transform)
-        {
-            GameObject.Destroy(alien.gameObject);
+    public void ReSpawnAliens (string type) {
+        foreach (Transform alien in gameObject.transform) {
+            GameObject.Destroy (alien.gameObject);
         }
-        if (type == "common")
-        {
+        if (type == "common") {
             for (float x = -8.0f; x <= 8.0f; x += 2.0f) // 2.0f
             {
                 for (float y = 0.5f; y <= 3.5f; y += 1.5f) //1.5f
                 {
-                    Vector3 pos = new Vector3(x, y);
-                    var new_alien = Instantiate(common_alien, pos, Quaternion.identity, gameObject.transform);
+                    Vector3 pos = new Vector3 (x, y);
+                    var new_alien = Instantiate (common_alien, pos, Quaternion.identity, gameObject.transform);
                 }
             }
         }
     }
 
-    public void ChangeLevel(int level)
-    {
-        ReSpawnAliens("common");
-        switch (level)
-        {
+    public void ChangeLevel (int level) {
+        ReSpawnAliens ("common");
+        switch (level) {
             case (1):
                 {
-                    this.level = (float)level;
-                    var newColor = new Color32(255,255, 255, 255);
-                    ChangeColor(newColor);
+                    this.level = (float) level;
+                    var newColor = new Color32 (255, 255, 255, 255);
+                    ChangeColor (newColor);
                     break;
                 }
             case (2):
                 {
-                    this.level = (float)level*1.5f;
-                    var newColor = new Color32(255, 236, 47, 34);
-                    ChangeColor(newColor);
+                    this.level = (float) level * 1.5f;
+                    var newColor = new Color32 (255, 236, 47, 34);
+                    ChangeColor (newColor);
                     break;
                 }
         }
     }
 
-    void ChangeColor(UnityEngine.Color color)
-    {
-        foreach (Transform alien in gameObject.transform)
-        {
-            alien.gameObject.GetComponent<SpriteRenderer>().color = color;
+    void ChangeColor (UnityEngine.Color color) {
+        foreach (Transform alien in gameObject.transform) {
+            alien.gameObject.GetComponent<SpriteRenderer> ().color = color;
         }
     }
 }

@@ -23,7 +23,7 @@ public class RestartGame : MonoBehaviour {
 
     }
     void PlayGame () {
-        SceneManager.LoadScene ("Welcome");
+        SceneManager.LoadScene ("Game");
     }
 
     void QuitGame () {
