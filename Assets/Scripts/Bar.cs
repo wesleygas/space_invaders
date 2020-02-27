@@ -21,4 +21,6 @@ public class Bar : MonoBehaviour {
         }
         // gameObject.SetActive (false);
     }
+
+
 }
