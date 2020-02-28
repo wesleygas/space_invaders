@@ -18,7 +18,7 @@ public class Aliens : MonoBehaviour {
     public float shooting_prob = 0.0189f;
 
     public GameObject AlienTiro;
-
+    public GameObject cowBeam;
     public GameObject common_alien;
 
     void Start () {
@@ -56,6 +56,7 @@ public class Aliens : MonoBehaviour {
             }
             if (Random.value < prob * (float) level) {
                 Instantiate (AlienTiro, alien.position, alien.rotation);
+                Instantiate(cowBeam, alien.position - new Vector3(0,.5f), Quaternion.Euler(0f,0f,180f));
             }
 
         }
