@@ -1471,6 +1471,7 @@ MonoBehaviour:
   level: 1
   shooting_prob: 0.0189
   AlienTiro: {fileID: 24882109424060917, guid: cb12e8e49d61364428096432fab2a775, type: 3}
+  cowBeam: {fileID: 4831339870681993118, guid: fe74dda8d55ee694f9fa36390aff9a2d, type: 3}
   common_alien: {fileID: 6022114705435943366, guid: b9b161bb9c1f80040b57e2bf0b78c682,
     type: 3}
 --- !u!1 &1046583554
