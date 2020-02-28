@@ -64,6 +64,7 @@ public class naviScript : MonoBehaviour {
         explosion.Play ();
         if (health > 0) {
             health -= 1;
+            HealthContainer.health -= 1;
         }
     }
 

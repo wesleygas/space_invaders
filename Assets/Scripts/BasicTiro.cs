@@ -32,7 +32,7 @@ public class BasicTiro : MonoBehaviour {
             killAlien.PlayOneShot (alien);
             StartCoroutine (WaitForSound ());
             Destroy (collision.gameObject);
-            GameObject.Find ("score").GetComponent<ScoreManager> ().AddScore (10);
+            GameObject.Find ("score").GetComponent<ScoreManager> ().AddScore(10*(4-HealthContainer.health));
         } else if (collision.tag == "Base") {
             collision.gameObject.SendMessage ("Hit");
             Destroy (gameObject);

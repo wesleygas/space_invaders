@@ -9,7 +9,7 @@ public class Aliens : MonoBehaviour {
     public float alone_rage = 10;
     public float wait = 0.4f;
     public float down = 0.4f;
-    float level = 1;
+    public float level = 1;
     float rage_bonus = 1;
 
     int last_count = 0;
